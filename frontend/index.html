@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang='en-CA' ng-app='autonomappr_app'>
+<head>
+  <base href='/'>
+  <meta charset='UTF-8'>
+  <title>Autonomappr</title>
+
+  <meta name='theme-color' content='#000'>
+
+  <!-- Behavioral Meta Data -->
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <meta content='yes' name='apple-mobile-web-app-capable' />
+  <meta content='minimum-scale=1.0, width=device-width, maximum-scale=1, user-scalable=no' name='viewport' />
+
+  <meta name='apple-touch-fullscreen' content='yes' />
+  <meta name='apple-mobile-web-app-capable' content='yes' />
+  <meta name='apple-mobile-web-app-status-bar-style' content='black' />
+
+  <link rel='apple-touch-icon' href='drone.png'>
+  <link rel='apple-touch-startup-image' href='drone.png'>
+
+  <!-- Import Styles -->
+  <link rel='stylesheet' type='text/css' href='css/main.css'>
+  <link rel='stylesheet' type='text/css' href='css/homepage.css'>
+  <link rel='stylesheet' type='text/css' href='css/navbar.css'>
+  <link rel='stylesheet' type='text/css' href='min/bootstrap.min.css'>
+  <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+  <!-- Google Maps -->
+  <!-- <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyB_GMLH5k68K2imf8dKzH0O7_tJYYhYvgs'></script> -->
+  <!-- <script src='js/controllers/mapStyles.js'></script> -->
+
+  <!-- Angular JS -->
+  <script src='min/angular.min.js'></script>
+  <script src='min/angular-route.min.js'></script>
+  <script src='min/angular-animate.min.js'></script>
+
+  <!--Import jQuery before materialize.js-->
+  <script src='min/jquery.min.js'></script>
+
+  <!-- Angular Includes -->
+  <script src='app.js'></script>
+
+  <script src='js/services/dataGetter.js'></script>
+
+  <script src='js/controllers/navbar.js'></script>
+  <script src='js/controllers/homepage.js'></script>
+
+</head>
+
+<body>
+
+  <div ng-controller='navbarCtrl'>
+    <div id='navbar'>
+      <div id='logo'>Autonomappr</div>
+    </div>
+
+  <div ng-view></div>
+
+</body>
+
+</html>

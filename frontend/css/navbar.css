@@ -1,0 +1,18 @@
+#navbar {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 4rem;
+  background-color: #232323;
+}
+
+#navbar #logo {
+  position: fixed;
+  top: 0.5rem;
+  left: 4rem;
+
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 900;
+}
