@@ -4,17 +4,18 @@
   <br>
   <br>
   <div class='row'>
-    <div class='col-lg-2 offset-lg-1'>
-      <h3>Latitude : {{lat}}</h3>
-      <h3>Longitude : {{lon}}</h3>
-
+    <div class='col-lg-2 offset-lg-1 col-sm-4 offset-sm-1'>
+      <h3>Click Latitude : <br> {{clickLat}}</h3>
+      <h3>Click Longitude : <br> {{clickLon}}</h3>
       <br><br>
 
-      <h3>New Latitude : {{lat2}}</h3>
-      <h3>New Longitude : {{lon2}}</h3>
+      <div>
+        <input class='btn btn-success' value='Add a Road'>
+      </div>
     </div>
-    <div class='col-lg-6 offset-lg-1'>
+    <div class='col-lg-6 offset-lg-1 col-sm-6'>
       <img src='img/odm_orthophoto.jpg' id='orthophoto'>
+      <canvas id='glCanvas'></canvas>
     </div>
   </div>
 </div>
