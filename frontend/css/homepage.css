@@ -6,9 +6,32 @@
   z-index: 1;
 }
 
+#mapOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
 #glCanvas {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 3;
+}
+
+#addRoadBtn {
+  width: 10em;
+  color: white;
+}
+
+.roadBtn {
+  width: 8em;
+  color: white;
+}
+
+.roadBtnQuit {
+  width: 2em;
+  color: white;
 }

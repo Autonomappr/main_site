@@ -10,11 +10,22 @@
       <br><br>
 
       <div>
-        <input class='btn btn-success' value='Add a Road'>
+        <div>
+          <input class='btn btn-success' id='addRoadBtn' type='submit' value='{{addRoadDisplay}}' ng-click='toggleRoadMode()'>
+        </div>
+        <br>
+        <div ng-repeat='road in roads'>
+          <br>
+          <div class='btn-group'>
+            <input class='btn roadBtn' ng-style="{'background' : '{{road.color}}'}" type='submit' value='Road {{road.id}}' ng-click='addToRoad(road.id)'>
+            <input class='btn roadBtnQuit' ng-style="{'background' : '{{road.color}}'}" type='submit' value='X' ng-click='removeRoad(road.id)'>
+          </div>
+        </div>
       </div>
     </div>
     <div class='col-lg-6 offset-lg-1 col-sm-6'>
       <img src='img/odm_orthophoto.jpg' id='orthophoto'>
+      <div id='mapOverlay'></div>
       <canvas id='glCanvas'></canvas>
     </div>
   </div>
