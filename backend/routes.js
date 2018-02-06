@@ -6,7 +6,8 @@ var roads = require('./functions/roads.js');
 var poi = require('./functions/poi.js');
 
 // Coordinates
-router.get('/datum', coord.getCoord);
+router.get('/params', coord.getCoord);
+router.post('/params/set', coord.setCoord);
 
 // Roads
 router.post('/roads/update', roads.update);

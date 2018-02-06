@@ -11,7 +11,7 @@
       var deferred = $q.defer();
       $http({
         method : 'GET',
-        url : '/api/datum',
+        url : '/api/params',
         headers: {}
       }).then(
         function successCallback(response) {
