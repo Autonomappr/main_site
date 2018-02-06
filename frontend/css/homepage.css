@@ -21,17 +21,34 @@
   z-index: 3;
 }
 
-#addRoadBtn {
+#addRoadBtn, #addPOIBtn{
   width: 10em;
+  margin: auto;
   color: white;
 }
 
-.roadBtn {
+.idBtn {
   width: 8em;
   color: white;
+  text-align: left!important;
 }
 
-.roadBtnQuit {
+.idBtnQuit {
+  text-align: left!important;
   width: 2em;
   color: white;
+}
+
+#poiContainer, #roadsContainer {
+  margin-bottom: 3em;
+  height: 35vh;
+  background-color: #f1f1f1;
+  padding: 1em;
+  padding-bottom: 1em;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+#poiContainer .row, #roadsContainer .row {
+  margin-bottom: 1em;
 }

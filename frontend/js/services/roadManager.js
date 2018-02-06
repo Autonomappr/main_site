@@ -6,19 +6,17 @@
 
   roadManager.$inject = ['$http', '$q', 'graphics'];
 
-  // const TOL = 0.02; // TIGHT
-  const TOL = 0.05; // LOOSE
+  const TOL = 0.02; // TIGHT
+  // const TOL = 0.05; // LOOSE
   var roadGraphs = {},
       colorOptions = [
         [244, 67, 54],
         [156, 39, 176],
         [33, 150, 243],
         [0, 150, 136],
-        // [76, 175, 80],
         [255, 235, 59],
         [255, 152, 0],
         [255, 87, 34],
-        [255, 255, 255],
         [233, 30, 99]
       ].map(function(x) { return x.map(function(y) { return (y / 255.0).toFixed(2); } ) });
 
@@ -61,8 +59,8 @@
       if(prevNode != null) {
         roadGraphs[roadId].edges.push([prevNode, newNode]);
       }
-      graphics.clearScreen();
-      graphics.drawRoads(roadGraphs);
+
+      graphics.drawRoads(roadGraphs, roadId, newNode);
 
       return newNode;
     }
@@ -97,8 +95,7 @@
         function successCallback(response) {
           roadGraphs = response.data.roadGraphs;
 
-          graphics.clearScreen();
-          graphics.drawRoads(roadGraphs);
+          graphics.drawRoads(roadGraphs, null, null);
 
           var roadIds = Object.keys(roadGraphs),
               roadColors = [];
@@ -124,8 +121,7 @@
     }
 
     function refresh() {
-      graphics.clearScreen();
-      graphics.drawRoads(roadGraphs);
+      graphics.drawRoads(roadGraphs, null, null);
     }
 
     function getRoadIds() { return Object.keys(roadGraphs); }

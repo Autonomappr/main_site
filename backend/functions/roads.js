@@ -22,7 +22,7 @@ module.exports.update = function(req, res) {
     fs.writeFile('backend/functions/roads.json', roads, 'utf8', function(err) {
       if(err) {
         console.log('Error:', e.stack);
-        res.send(500);
+        res.sned(500);
       } else {
         res.send(200);
       }
@@ -32,16 +32,17 @@ module.exports.update = function(req, res) {
 
 module.exports.getRoads = function(req, res) {
 
-  try {
-    var data = fs.readFileSync('backend/functions/roads.json', 'utf8');
-  } catch(e) {
-      console.log('Error:', e.stack);
-      res.send(404);
+  if (!fs.existsSync('backend/functions/roads.json')) {
+    var roadsTmp = JSON.stringify({
+      roadGraphs : {}
+    });
+
+    fs.writeFileSync('backend/functions/roads.json', roadsTmp, 'utf8');
   }
+
+  var data = fs.readFileSync('backend/functions/roads.json', 'utf8');
 
   var roads = JSON.parse(data);
 
-  console.log(roads);
-
-  res.json(roads).send(200);
+  res.json(roads);
 };

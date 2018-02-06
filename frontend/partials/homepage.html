@@ -5,20 +5,35 @@
   <br>
   <div class='row'>
     <div class='col-lg-2 offset-lg-1 col-sm-4 offset-sm-1'>
-      <h3>Click Latitude : <br> {{clickLat}}</h3>
+      <!-- <h3>Click Latitude : <br> {{clickLat}}</h3>
       <h3>Click Longitude : <br> {{clickLon}}</h3>
-      <br><br>
+      <br><br> -->
 
-      <div>
-        <div>
-          <input class='btn btn-success' id='addRoadBtn' type='submit' value='{{addRoadDisplay}}' ng-click='toggleRoadMode()'>
+      <div id='roadsContainer'>
+        <div class='row'>
+          <div class='col-lg-10 col-offset-1'>
+            <input class='btn btn-success' id='addRoadBtn' type='submit' value='{{addRoadDisplay}}' ng-click='toggleRoadMode()'>
+          </div>
         </div>
-        <br>
-        <div ng-repeat='road in roads'>
-          <br>
-          <div class='btn-group'>
-            <input class='btn roadBtn' ng-style="{'background' : '{{road.color}}'}" type='submit' value='Road {{road.id}}' ng-click='addToRoad(road.id)'>
-            <input class='btn roadBtnQuit' ng-style="{'background' : '{{road.color}}'}" type='submit' value='X' ng-click='removeRoad(road.id)'>
+
+        <div class='row' ng-repeat='road in roads'>
+          <div class='btn-group col-lg-10 col-offset-1'>
+            <input class='btn idBtn' ng-style="{'background' : '{{road.color}}'}" type='submit' value='Road {{road.id}}' ng-click='addToRoad(road.id)'>
+            <input class='btn idBtnQuit' ng-style="{'background' : '{{road.color}}'}" type='submit' value='X' ng-click='removeRoad(road.id)'>
+          </div>
+        </div>
+      </div>
+
+      <div id='poiContainer'>
+        <div class='row'>
+          <div class='col-lg-10 col-offset-1'>
+            <input class='btn btn-success' id='addPOIBtn' type='submit' value='{{addPOIDisplay}}' ng-click='togglePOIMode()'>
+          </div>
+        </div>
+        <div class='row' ng-repeat='poi in poiList'>
+          <div class='btn-group col-lg-10 col-offset-1'>
+            <input class='btn idBtn' ng-style="{'background' : '{{poi.color}}'}" type='submit' value='POI {{poi.id}}' ng-click='addToPOI(poi.id)'>
+            <input class='btn idBtnQuit' ng-style="{'background' : '{{poi.color}}'}" type='submit' value='X' ng-click='removePOI(poi.id)'>
           </div>
         </div>
       </div>

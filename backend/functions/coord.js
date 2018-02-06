@@ -26,5 +26,5 @@ module.exports.getCoord = function(req, res) {
   // console.log('long');
   // console.log(coordinates.lng);
 
-  res.json(coordinates).send(200);
+  res.json(coordinates);
 };

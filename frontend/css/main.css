@@ -19,7 +19,7 @@ body {
   position: relative;
 }
 
-::-scrollbar {
+/* ::-scrollbar {
   display: none;
 }
 ::-o-scrollbar {
@@ -30,7 +30,7 @@ body {
 }
 ::-moz-scrollbar {
   display: none;
-}
+} */
 
 .unselectable {
   -webkit-user-select: none; /* Chrome/Safari */
