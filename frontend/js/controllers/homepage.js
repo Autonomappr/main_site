@@ -44,6 +44,37 @@
     $scope.addRoadDisplay = 'Add a Road';
     $scope.addPOIDisplay = 'Add a POI';
 
+    var mapOptions = {
+      backgroundColor: '#232323',
+      center: {lat: 43.475211, lng: -80.550024},
+      clickableIcons: false,
+      draggable: false,
+      disableDoubleClickZoom: true,
+      fullscreenControl: false,
+      gestureHandling: 'none',
+      gridlines: false,
+      keyboardShortcuts: false,
+      mapTypeControl: true,
+      mapTypeControlOptions: {
+        position: google.maps.ControlPosition.TOP_LEFT,
+        mapTypeIds: google.maps.MapTypeId.SATELLITE | google.maps.MapTypeId.ROADMAP,
+        style: google.maps.MapTypeControlStyle.DEFAULT
+      },
+      // mapTypeId: google.maps.MapTypeId.ROADMAP,
+      navigationControl: false,
+      panControl: false,
+      rotateControl: false,
+      scaleControl: false,
+      scrollwheel: false,
+      streetViewControl: false,
+      styles: mapStyles,
+      zoom: 19,
+      zoomControl: false,
+    }
+
+    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    map.setTilt(0);
+
     var refresh = function() {
       graphics.clearScreen();
       roadManager.refresh();

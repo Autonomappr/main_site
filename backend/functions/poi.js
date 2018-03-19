@@ -31,7 +31,6 @@ module.exports.update = function(req, res) {
 };
 
 module.exports.getPOIList = function(req, res) {
-
   if(!fs.existsSync('backend/functions/poi.json')) {
     var poiTmp = JSON.stringify({
       poiList : {}
@@ -41,7 +40,6 @@ module.exports.getPOIList = function(req, res) {
   }
 
   var data = fs.readFileSync('backend/functions/poi.json', 'utf8');
-
   var poiList = JSON.parse(data);
 
   res.json(poiList);

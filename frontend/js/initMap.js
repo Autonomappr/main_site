@@ -1,10 +1,10 @@
 // Google Maps Style
 
 function initMap() {
-  // Styles a map in night mode.
+  // Styles a map in silver mode.
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 40.674, lng: -73.945},
-    zoom: 12,
+    center: {lat: 43.474901, lng: -80.549863},
+    zoom: 16,
     styles: [
       {
         "elementType": "geometry",

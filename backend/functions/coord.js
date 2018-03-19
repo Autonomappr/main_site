@@ -3,15 +3,7 @@ var utmObj = require('utm-latlng');
 
 module.exports.getCoord = function(req, res) {
 
-  if(!fs.existsSync('backend/functions/poi.json')) {
-    var poiTmp = JSON.stringify({
-      poiList : {}
-    });
-
-    fs.writeFileSync('backend/functions/poi.json', poiTmp, 'utf8');
-  }
-
-  if (fs.existsSync('backend/functions/coord.json')) {
+  if(!fs.existsSync('backend/functions/coord.json')) {
     // Default Aukerman Data Set Params
     var coordTmp = JSON.stringify({
       "zoneNum" : 17,
@@ -22,7 +14,7 @@ module.exports.getCoord = function(req, res) {
       "orthophotoWidth" : 7682
     });
 
-    fs.writeFileSync('backend/functions/poi.json', poiTmp, 'utf8');
+    fs.writeFileSync('backend/functions/coord.json', coordTmp, 'utf8');
   }
 
   var data = fs.readFileSync('backend/functions/coord.json', 'utf8');
