@@ -19,8 +19,8 @@
           <input id='r{{road.id}}' class='itemName' type='text' ng-model='road.name' ng-style="{'color' : '{{road.color}}'}" disabled='true'>
         </div>
         <div class='col-sm-3 underline'>
-          <a class='btn-floating edit-btn' type='submit' ng-click='addToRoad(road.id)'><button class='btn-floating edit-button'><img src='img/edit.png'></button></a>
-          <a class='btn-floating cancel-btn' type='submit' ng-click='removeRoad(road.id)'><button class='btn-floating cancel-button'><img src='img/cancel.png'></button></a>
+          <button class='btn-floating edit-button' type='submit' ng-click='addToRoad(road.id)'><img src='img/edit.png'></button>
+          <button class='btn-floating cancel-button' type='submit' ng-click='removeRoad(road.id)'><img src='img/cancel.png'></button>
         </div>
       </div>
       <div class='row'>

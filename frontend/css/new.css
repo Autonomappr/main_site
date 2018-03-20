@@ -60,10 +60,6 @@
   border: solid white 2px;
 }
 
-.edit-btn, .cancel-btn {
-  color: #444444 !important;
-}
-
 .itemNumber {
   font-weight: 100;
   font-size: 20px;
