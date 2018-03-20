@@ -8,6 +8,7 @@
 
   const TOL = 0.02; // TIGHT
   // const TOL = 0.05; // LOOSE
+  var currentMaxID = 0;
   var poiList = {},
       colorOptions = [
         [244, 67, 54],
@@ -26,15 +27,27 @@
     return dist < TOL;
   }
 
+  function setMaxID() {
+    currentMaxID = 0;
+    for(poi in poiList) {
+      if(poiList[poi].id > currentMaxID) {
+        currentMaxID = poiList[poi].id;
+      }
+    }
+    currentMaxID += 1;
+  }
+
   function poiManager($http, $q, graphics) {
     function initPOI() {
       var poi = {
         vertices : [],
-        id : new Date().getTime() % 10E3,
-        color : colorOptions[Math.floor(Math.random() * colorOptions.length)]
+        id : currentMaxID,
+        color : colorOptions[Math.floor(Math.random() * colorOptions.length)],
+        name : 'New POI'
       };
 
       poiList[poi.id] = poi;
+      setMaxID();
 
       return [poi.id, poi.color.map(function(x) { return Math.floor(x * 255)})];
     }
@@ -93,13 +106,16 @@
           graphics.drawPOI(poiList);
 
           var pointsIds = Object.keys(poiList),
-              poiColors = [];
+              poiColors = [],
+              poiNames = [];
 
           for(pointsId in poiList) {
             poiColors.push(poiList[pointsId].color.map(function(x) { return Math.floor(x * 255.0); }));
+            poiNames.push(poiList[pointsId].name);
           }
+          setMaxID();
 
-          defferred.resolve([pointsIds, poiColors]);
+          defferred.resolve([pointsIds, poiColors, poiNames]);
         },
         function errorCallback(e) {
           console.log(e);
@@ -112,6 +128,7 @@
 
     function removePOI(pointsId) {
       delete poiList[pointsId];
+      setMaxID();
       savePOI();
     }
 
@@ -121,6 +138,10 @@
 
     function getPointsIds() { return Object.keys(poiList); }
 
+    function rename(id, name) {
+      poiList[id].name = name;
+    }
+
     return {
       addPoint : addPoint,
       initPOI : initPOI,
@@ -128,7 +149,8 @@
       loadPOI : loadPOI,
       removePOI : removePOI,
       refresh : refresh,
-      getPointsIds : getPointsIds
+      getPointsIds : getPointsIds,
+      rename : rename
     };
   }
 })();

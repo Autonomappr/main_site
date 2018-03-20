@@ -22,7 +22,7 @@ module.exports.update = function(req, res) {
     fs.writeFile('backend/functions/roads.json', roads, 'utf8', function(err) {
       if(err) {
         console.log('Error:', e.stack);
-        res.sned(500);
+        res.send(500);
       } else {
         res.send(200);
       }

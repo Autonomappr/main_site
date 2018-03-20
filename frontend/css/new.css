@@ -16,7 +16,7 @@
   left: 370px;
   width: 643px;
   height: 100vh;
-  background-color: rgb(150, 150, 150);
+  background-color: rgb(255, 255, 255);
 }
 
 #companyName {
@@ -47,4 +47,67 @@
 #map {
   height: 100vh;
   width: 1484px;;
+}
+
+#orthophoto, #glCanvas{
+  position: fixed;
+  top: 195px;
+  left: 415px;
+  width: 520px;
+  height: 385px;
+  -webkit-transform: rotate(-114deg);
+  transform: rotate(-114deg);
+  border: solid white 2px;
+}
+
+.edit-btn, .cancel-btn {
+  color: #444444 !important;
+}
+
+.itemNumber {
+  font-weight: 100;
+  font-size: 20px;
+  padding-bottom: 10px;
+}
+
+.itemName {
+  font-weight: 400;
+  font-size: 20px;
+  margin-bottom: 5px;
+  background: transparent;
+  border: none;
+}
+
+.itemName:enabled {
+  color: white!important;
+}
+.addButton, .doneButton {
+  font-size: 15px;
+  text-decoration: none !important;
+  outline:none !important;
+  border: none !important;
+  box-shadow: none !important;
+  float: right;
+}
+
+.addButton {
+  color: #AAAAAA!important;
+  background: transparent;
+}
+
+.addIcon {
+  font-size: 23px;
+  font-weight: 300;
+}
+
+.doneButton {
+  color: white!important;
+  background: #888888;
+}
+
+*:focus{
+  text-decoration: none !important;
+  outline:none !important;
+  border: none !important;
+  box-shadow: none !important;
 }

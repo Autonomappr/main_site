@@ -129,7 +129,6 @@
       gl.enable(gl.DEPTH_TEST);  // Enable depth testing
       gl.depthFunc(gl.LEQUAL);   // Near things obscure far things
       gl.clear(gl.GL_COLOR_BUFFER_BIT); // Clear everything
-      // console.log('cleared');
     }
 
     function initGraphics(gl_set) {
@@ -255,9 +254,6 @@
     function drawPOI(poiList) {
       for (pointsId in poiList) {
         var pointsArray = [];
-
-        console.log(poiList);
-        console.log(pointsId);
 
         for (var i = 0; i < poiList[pointsId].vertices.length; i++) {
           pointsArray.push(poiList[pointsId].vertices[i][0]);

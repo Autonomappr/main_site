@@ -1,48 +1,25 @@
-#orthophoto {
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
-
-#mapOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 3;
-  background-color: rgba(255, 255, 255, 0.6);
-}
-
-#glCanvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 3;
-}
 
 #addRoadBtn, #addPOIBtn{
   width: 10em;
   margin: auto;
-  color: white;
 }
 
 .idBtn {
   width: 8em;
-  color: white;
+  color: #141414;
   text-align: left!important;
 }
 
 .idBtnQuit {
   text-align: left!important;
   width: 2em;
-  color: white;
+  color: #141414;
 }
 
 #poiContainer, #roadsContainer {
   margin-bottom: 3em;
   height: 35vh;
-  background-color: #f1f1f1;
+  background-color: #141414;
   padding: 1em;
   padding-bottom: 1em;
   overflow-y: scroll;

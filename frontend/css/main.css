@@ -1,16 +1,3 @@
-@media only screen and (max-width: 900px) {
-  .desktop-only {
-    display: none !important;
-  }
-}
-
-@media only screen and (min-width: 901px) {
-  .mobile-only {
-    display: none !important;
-  }
-
-}
-
 body {
   background-color: #fafafa;
   font-family: 'Open Sans', sans-serif;
@@ -18,19 +5,6 @@ body {
   overflow-x: hidden;
   position: relative;
 }
-
-/* ::-scrollbar {
-  display: none;
-}
-::-o-scrollbar {
-  display: none;
-}
-::-webkit-scrollbar {
-  display: none;
-}
-::-moz-scrollbar {
-  display: none;
-} */
 
 .unselectable {
   -webkit-user-select: none; /* Chrome/Safari */

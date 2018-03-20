@@ -24,6 +24,31 @@
     return [newLat, newLon];
   }
 
+  function rotate(x, y, x_c, y_c, rad) {
+    var x_1 = x - x_c,
+        y_1 = y - y_c;
+
+    var x_2 = Math.cos(rad) * x_1 - Math.sin(rad) * y_1,
+        y_2 = Math.sin(rad) * x_1 + Math.cos(rad) * y_1;
+
+    return [x_2 + x_c, y_2 + y_c];
+  }
+
+  function getRotationRad(item) {
+    var transform = item.css("-webkit-transform");
+
+    if(transform !== 'none') {
+        var values = transform.split('(')[1].split(')')[0].split(',');
+        var a = values[0];
+        var b = values[1];
+        var angle = Math.atan2(b, a);
+    } else { var angle = 0; }
+
+    // return (angle < 0) ? angle + 2*Math.PI : angle;
+    return angle;
+  }
+
+
   var NONE = 0, ROADS = 1, POI = 2;
   function homepageCtrl($scope, dataGetter, graphics, roadManager, poiManager) {
     var res = 1,
@@ -46,7 +71,7 @@
 
     var mapOptions = {
       backgroundColor: '#232323',
-      center: {lat: 43.475211, lng: -80.550024},
+      center: {lat: 43.475011, lng: -80.548040},
       clickableIcons: false,
       draggable: false,
       disableDoubleClickZoom: true,
@@ -58,9 +83,9 @@
       mapTypeControlOptions: {
         position: google.maps.ControlPosition.TOP_LEFT,
         mapTypeIds: google.maps.MapTypeId.SATELLITE | google.maps.MapTypeId.ROADMAP,
-        style: google.maps.MapTypeControlStyle.DEFAULT
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
       },
-      // mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
       navigationControl: false,
       panControl: false,
       rotateControl: false,
@@ -68,7 +93,7 @@
       scrollwheel: false,
       streetViewControl: false,
       styles: mapStyles,
-      zoom: 19,
+      zoom: 18,
       zoomControl: false,
     }
 
@@ -97,10 +122,7 @@
       $('#glCanvas').attr('width', $scope.photoWidth);
       $('#glCanvas').attr('height', $scope.photoHeight);
 
-      $('#mapOverlay').css('width', $scope.photoWidth);
-      $('#mapOverlay').css('height', $scope.photoHeight);
-
-      canvas = document.querySelector("#glCanvas"),
+      canvas = document.querySelector("#glCanvas");
       gl = canvas.getContext("webgl");
 
       // Only continue if WebGL is available and working
@@ -112,25 +134,29 @@
       graphics.initGraphics(gl);
       roadManager.loadRoads().then(function (data) {
         var roads = data[0],
-            colors = data[1];
+            colors = data[1],
+            names = data[2];
         for(var i = 0; i < roads.length; i++) {
           var colorString = 'rgb(' + colors[i][0] + ',' + colors[i][1] + ',' +  colors[i][2] + ')'
           $scope.roads.push({
             id : roads[i],
-            color : colorString
+            color : colorString,
+            name : names[i]
           });
         }
       }, function () {});
 
       poiManager.loadPOI().then(function (data) {
         var poi = data[0],
-            colors = data[1];
+            colors = data[1],
+            names = data[2];
 
         for(var i = 0; i < poi.length; i++) {
           var colorString = 'rgb(' + colors[i][0] + ',' + colors[i][1] + ',' +  colors[i][2] + ')'
           $scope.poiList.push({
             id : poi[i],
-            color : colorString
+            color : colorString,
+            name : names[i]
           });
         }
       }, function () {});
@@ -140,11 +166,17 @@
 
     $('#glCanvas').click(function (e) { //Relative ( to its parent) mouse position
       if(clickAction) {
-        var posX = $(this).offset().left,
-            posY = $(this).offset().top;
+        var left = parseInt($('#glCanvas').css("left"), 10),
+            top = parseInt($('#glCanvas').css("top"), 10);
 
-        var click_X = (e.pageX - posX),
-            click_Y = (e.pageY - posY);
+        var rad = -getRotationRad($('#glCanvas')),
+            x_c = left + $scope.photoWidth / 2.0,
+            y_c = top + $scope.photoHeight / 2.0;
+
+        click = rotate(e.pageX, e.pageY, x_c, y_c, rad);
+
+        click_X = (click[0] - left) / $scope.photoWidth;
+        click_Y = (click[1] - top) / $scope.photoHeight;
 
         // var click_X = e.pageX - posX - $scope.photoWidth * 0.5366858898,
         //     click_Y = e.pageY - posY - $scope.photoHeight * 0.4535090409,
@@ -157,7 +189,7 @@
         // $scope.$apply();
 
         if(clickAction == ROADS) {
-          prevNode = roadManager.addPoint(prevNode, click_X / $scope.photoWidth, click_Y / $scope.photoHeight, currentRoadID);
+          prevNode = roadManager.addPoint(prevNode, click_X, click_Y, currentRoadID);
           poiManager.refresh()
           // roadArray.push((click_X) / $scope.photoWidth);
           // roadArray.push(1.0 - (click_Y) / $scope.photoHeight);
@@ -166,7 +198,7 @@
           // graphics.drawRoadPoints(roadArray);
           // graphics.drawRoadLines(roadArray);
         } else if (clickAction == POI) {
-          poiManager.addPoint(click_X / $scope.photoWidth, click_Y / $scope.photoHeight, currentPointsID);
+          poiManager.addPoint(click_X, click_Y, currentPointsID);
           roadManager.refresh()
         }
       }
@@ -178,23 +210,29 @@
       }
 
       if (clickAction == NONE) {
-        $('#addRoadBtn').removeClass('btn-success');
-        $('#addRoadBtn').addClass('btn-warning');
+        $('#addRoadBtn').removeClass('addButton');
+        $('#addRoadBtn').addClass('doneButton');
         $scope.addRoadDisplay = 'Done';
         clickAction = ROADS;
         var data = roadManager.initRoad();
         currentRoadID = data[0];
         var colorString = 'rgb(' + data[1][0] + ',' + data[1][1] + ',' +  data[1][2] + ')';
-
+        var name = 'New Road';
         $scope.roads.push({
           id: currentRoadID,
-          color: colorString
+          color : colorString,
+          name : name
         });
       } else {
-        $('#addRoadBtn').removeClass('btn-warning');
-        $('#addRoadBtn').addClass('btn-success');
+        $('#addRoadBtn').removeClass('doneButton');
+        $('#addRoadBtn').addClass('addButton');
+        $('#' + currentRoadID).prop('disabled', true);
+
         $scope.addRoadDisplay = 'Add a Road';
         clickAction = NONE;
+
+        var index = $scope.roads.findIndex(x => x.id == currentRoadID);
+        roadManager.rename(currentRoadID, $scope.roads[index].name)
         roadManager.saveRoads();
         refresh();
         currentRoadID = -1;
@@ -203,8 +241,10 @@
     }
 
     $scope.addToRoad = function (roadId) {
-      $('#addRoadBtn').removeClass('btn-success');
-      $('#addRoadBtn').addClass('btn-warning');
+      $('#addRoadBtn').removeClass('addButton');
+      $('#addRoadBtn').addClass('doneButton');
+      $('#' + roadId).prop('disabled', false);
+
       $scope.addRoadDisplay = 'Done';
       prevNode = null;
       currentRoadID = roadId;
@@ -225,23 +265,28 @@
       }
 
       if (clickAction == NONE) {
-        $('#addPOIBtn').removeClass('btn-success');
-        $('#addPOIBtn').addClass('btn-warning');
+        $('#addPOIBtn').removeClass('addButton');
+        $('#addPOIBtn').addClass('doneButton');
         $scope.addPOIDisplay = 'Done';
         clickAction = POI;
         var data = poiManager.initPOI();
         currentPointsID = data[0];
         var colorString = 'rgb(' + data[1][0] + ',' + data[1][1] + ',' +  data[1][2] + ')';
-
+        var name = 'New POI';
         $scope.poiList.push({
           id: currentPointsID,
-          color: colorString
+          color: colorString,
+          name : name
         });
       } else {
-        $('#addPOIBtn').removeClass('btn-warning');
-        $('#addPOIBtn').addClass('btn-success');
+        $('#addPOIBtn').removeClass('doneButton');
+        $('#addPOIBtn').addClass('addButton');
+        $('#' + currentPointsID).prop('disabled', true)
         $scope.addPOIDisplay = 'Add a POI';
         clickAction = NONE;
+
+        var index = $scope.poiList.findIndex(x => x.id == currentPointsID);
+        poiManager.rename(currentPointsID, $scope.poiList[index].name)
         poiManager.savePOI();
         refresh();
         currentPointsID = -1;
@@ -249,11 +294,13 @@
     }
 
     $scope.addToPOI = function (pointsId) {
-      $('#addPOIBtn').removeClass('btn-success');
-      $('#addPOIBtn').addClass('btn-warning');
+      $('#addPOIBtn').removeClass('addButton');
+      $('#addPOIBtn').addClass('doneButton');
       $scope.addPOIDisplay = 'Done';
       currentPointsID = pointsId;
       clickAction = POI;
+
+      $('#' + currentPointsID).prop('disabled', false);
     }
 
     $scope.removePOI = function (pointsId) {
@@ -263,7 +310,6 @@
       $scope.poiList.splice(index, 1);
       refresh();
     }
-
   }
 
 })();

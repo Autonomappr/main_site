@@ -8,6 +8,7 @@
 
   const TOL = 0.02; // TIGHT
   // const TOL = 0.05; // LOOSE
+  var currentMaxID = 0;
   var roadGraphs = {},
       colorOptions = [
         [244, 67, 54],
@@ -20,6 +21,16 @@
         [233, 30, 99]
       ].map(function(x) { return x.map(function(y) { return (y / 255.0).toFixed(2); } ) });
 
+  function setMaxID() {
+    currentMaxID = 0;
+    for(road in roadGraphs) {
+      if(roadGraphs[road].id > currentMaxID) {
+        currentMaxID = roadGraphs[road].id;
+      }
+    }
+    currentMaxID += 1;
+  }
+
   function withinTolerance(node1, node2) {
     var dist = Math.sqrt(Math.pow(node1[0] - node2[0], 2) + Math.pow(node1[1] - node2[1], 2));
     // console.log('Distance to prev node : ' + dist);
@@ -31,11 +42,13 @@
       var road = {
         vertices : [],
         edges : [],
-        id : new Date().getTime() % 10E3,
-        color : colorOptions[Math.floor(Math.random() * colorOptions.length)]
+        id : currentMaxID,
+        color : colorOptions[Math.floor(Math.random() * colorOptions.length)],
+        name: 'New Road'
       };
 
       roadGraphs[road.id] = road;
+      setMaxID();
 
       return [road.id, road.color.map(function(x) { return Math.floor(x * 255)})];
     }
@@ -98,13 +111,18 @@
           graphics.drawRoads(roadGraphs, null, null);
 
           var roadIds = Object.keys(roadGraphs),
-              roadColors = [];
+              roadColors = [],
+              roadNames = [];
 
           for(roadId in roadGraphs) {
             roadColors.push(roadGraphs[roadId].color.map(function(x) { return Math.floor(x * 255.0); }));
+            roadNames.push(roadGraphs[roadId].name);
+            console.log("R", roadId, ": ", roadGraphs[roadId]);
           }
 
-          defferred.resolve([roadIds, roadColors]);
+          setMaxID();
+
+          defferred.resolve([roadIds, roadColors, roadNames]);
         },
         function errorCallback(e) {
           console.log(e);
@@ -117,6 +135,7 @@
 
     function removeRoad(roadId) {
       delete roadGraphs[roadId];
+      setMaxID();
       saveRoads();
     }
 
@@ -126,6 +145,10 @@
 
     function getRoadIds() { return Object.keys(roadGraphs); }
 
+    function rename(id, name) {
+      roadGraphs[id].name = name;
+    }
+
     return {
       addPoint : addPoint,
       initRoad : initRoad,
@@ -133,7 +156,8 @@
       loadRoads : loadRoads,
       removeRoad : removeRoad,
       refresh : refresh,
-      getRoadIds : getRoadIds
+      getRoadIds : getRoadIds,
+      rename : rename
     };
   }
 })();
