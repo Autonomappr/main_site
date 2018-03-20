@@ -16,16 +16,16 @@
           <span class='itemNumber' ng-style="{'color' : '{{road.color}}'}">R{{road.id}}</span>
         </div>
         <div class='btn-group col-sm-7 offset-sm-1 underline' >
-          <input id='{{road.id}}' class='itemName' type='text' ng-model='road.name' ng-style="{'color' : '{{road.color}}'}" disabled='true'>
+          <input id='r{{road.id}}' class='itemName' type='text' ng-model='road.name' ng-style="{'color' : '{{road.color}}'}" disabled='true'>
         </div>
         <div class='btn-group col-sm-3 underline'>
-          <a class='btn-floating edit-btn' type='submit' ng-click='addToRoad(road.id)'><i class='material-icons'>edit</i></a>
-          <a class='btn-floating cancel-btn' type='submit' ng-click='removeRoad(road.id)'><i class='material-icons'>cancel</i></a>
+          <a class='btn-floating edit-btn' type='submit' ng-click='addToRoad(road.id)'><button class='btn-floating edit-button'><img src='img/edit.png'></button></a>
+          <a class='btn-floating cancel-btn' type='submit' ng-click='removeRoad(road.id)'><button class='btn-floating cancel-button'><img src='img/cancel.png'></button></a>
         </div>
       </div>
       <div class='row'>
         <div class='col-lg-12'>
-          <button class='btn addButton' id='addRoadBtn' type='submit' ng-click='toggleRoadMode()'>{{addRoadDisplay}}  <span class='addIcon'>+</span></button>
+          <button class='btn addButton' id='addRoadBtn' type='submit' ng-click='toggleRoadMode()'>{{addRoadDisplay}}</button>
         </div>
       </div>
     </div>
@@ -39,16 +39,16 @@
           <span class='itemNumber' ng-style="{'color' : '{{poi.color}}'}">P{{poi.id}}</span>
         </div>
         <div class='btn-group col-sm-7 offset-sm-1 underline' >
-          <input id='{{poi.id}}' class='itemName' type='text' ng-model='poi.name' ng-style="{'color' : '{{poi.color}}'}" disabled='true'>
+          <input id='p{{poi.id}}' class='itemName' type='text' ng-model='poi.name' ng-style="{'color' : '{{poi.color}}'}" disabled='true'>
         </div>
         <div class='btn-group col-sm-3 underline'>
-          <a class='btn-floating edit-btn' type='submit' ng-click='addToPOI(poi.id)'><i class='material-icons'>edit</i></a>
-          <a class='btn-floating cancel-btn' type='submit' ng-click='removePOI(poi.id)'><i class='material-icons'>cancel</i></a>
+          <a class='btn-floating edit-btn' type='submit' ng-click='addToPOI(poi.id)'><button class='btn-floating edit-button'><img src='img/edit.png'></button></a>
+          <a class='btn-floating cancel-btn' type='submit' ng-click='removePOI(poi.id)'><button class='btn-floating cancel-button'><img src='img/cancel.png'></button></a>
         </div>
       </div>
       <div class='row'>
         <div class='col-lg-12'>
-          <button class='btn addButton' id='addPOIBtn' type='submit' ng-click='togglePOIMode()'>{{addPOIDisplay}}  <span class='addIcon'>+</span></button>
+          <button class='btn addButton' id='addPOIBtn' type='submit' ng-click='togglePOIMode()'>{{addPOIDisplay}}</button>
         </div>
       </div>
     </div>

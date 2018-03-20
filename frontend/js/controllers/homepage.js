@@ -226,7 +226,7 @@
       } else {
         $('#addRoadBtn').removeClass('doneButton');
         $('#addRoadBtn').addClass('addButton');
-        $('#' + currentRoadID).prop('disabled', true);
+        $('#r' + currentRoadID).prop('disabled', true);
 
         $scope.addRoadDisplay = 'Add a Road';
         clickAction = NONE;
@@ -243,7 +243,7 @@
     $scope.addToRoad = function (roadId) {
       $('#addRoadBtn').removeClass('addButton');
       $('#addRoadBtn').addClass('doneButton');
-      $('#' + roadId).prop('disabled', false);
+      $('#r' + roadId).prop('disabled', false);
 
       $scope.addRoadDisplay = 'Done';
       prevNode = null;
@@ -281,7 +281,7 @@
       } else {
         $('#addPOIBtn').removeClass('doneButton');
         $('#addPOIBtn').addClass('addButton');
-        $('#' + currentPointsID).prop('disabled', true)
+        $('#p' + currentPointsID).prop('disabled', true)
         $scope.addPOIDisplay = 'Add a POI';
         clickAction = NONE;
 
@@ -300,7 +300,7 @@
       currentPointsID = pointsId;
       clickAction = POI;
 
-      $('#' + currentPointsID).prop('disabled', false);
+      $('#p' + currentPointsID).prop('disabled', false);
     }
 
     $scope.removePOI = function (pointsId) {
