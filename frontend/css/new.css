@@ -91,11 +91,6 @@
   background: transparent;
 }
 
-.addIcon {
-  font-size: 23px;
-  font-weight: 300;
-}
-
 .doneButton {
   color: white!important;
   background: #888888;
@@ -104,13 +99,6 @@
 .edit-button, .cancel-button {
   color: #888 !important;
 }
-
-/* .edit-button img, .cancel-button img {
-  height: 14px;
-  width: 14px;
-  margin-top: -9px;
-  margin-left: -4px;
-} */
 
 *:focus{
   text-decoration: none !important;
