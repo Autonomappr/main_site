@@ -106,3 +106,14 @@
   border: none !important;
   box-shadow: none !important;
 }
+
+#object-download-form {
+  width: 100%;
+}
+
+#object-download-form button {
+  width: 100%;
+  border-radius: 0px;
+  background-color: #000;
+  color: #aaa;
+}
